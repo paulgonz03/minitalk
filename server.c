@@ -2,20 +2,13 @@
 #include <stdio.h>
 #include <signal.h>
 
-// int hazesto()
-// {
-
-// }
-
 int main()
 {
+    struct sigaction;
     int pid;
 
     pid = getpid();
     printf("server PID-->%d\n", pid);
-    // signal(SIGINT, hazesto());
     while (1)
-    {
-
-    }
+        pause();
 }

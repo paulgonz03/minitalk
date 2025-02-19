@@ -9,11 +9,9 @@ int ft_parser_pid(char *pid)
     i = 0;
     while (pid[i])
     {
-        if (pid[i] >= '0' || pid[i] <= '9')
+        if (pid[i] >= '0' && pid[i] <= '9'&& i < 5)
             i++;
         else
-            return(0);
-        if (i > 4)
             return(0);
     }
     return(i);
@@ -21,13 +19,9 @@ int ft_parser_pid(char *pid)
 // void ft_send_signal(char *sentence)
 // {
 //     int i;
-//     int binary;
-
+    
 //     i = 0;
-//     while (sentence[i])
-//         i++;
-//     binary = malloc(i*8 + 1);
-//     while (sentence[i])
+//     while ()
 //     {
 
 //     }
@@ -39,16 +33,16 @@ int main(int argc, char **argv)
     int pid;
 
     if (argc != 3)
-    {
-        printf("Error parametres\n");
-        return (1);
-    }
+        return (printf("Error parametres\n"), 1);
     else
     {
+        printf("%s\n", argv[1]);
         if (!ft_parser_pid(argv[1]))
             return(printf("error parserPID"), 1);
-        pid = atoi(argv[1]);  
-    
+        pid = atoi(argv[1]);
+        
+        ft_send_signal (argv[2], pid);
+
     }
     return(0);
 }
