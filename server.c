@@ -1,27 +1,25 @@
 #include <unistd.h>
 #include <stdio.h>
 #include <signal.h>
+
 void	ft_print_char(int signal, siginfo_t *pid, void *opt)
 {
-	static int	i;
-	static int	chr;
+	static int ch;
+	static int i = 0;
 
 	(void)opt;
 	if (signal == SIGUSR1)
-		chr = chr << 1 | 1;
-	else
-		chr = chr << 1;
+		ch = ch << 1 | 1;
+	if (signal == SIGUSR2)
+		ch = ch << 1;
 	if (++i == 8)
-	{
-		write(1, &chr, 1);
-		i = 0;
-		chr = 0;
-	}
+		i = write(1, &ch, 1) - 1;
 	kill(pid->si_pid, SIGUSR1);
+	
 }
 int main()
 {
-    struct sigaction sg;
+	struct sigaction	sg;
     int pid;
 
     pid = getpid();
