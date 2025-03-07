@@ -33,7 +33,7 @@ void ft_send_signal(char ch, int pid)
 		else
 			kill(pid, SIGUSR2);
 		while (g_confirm != 1)
-			usleep(10);
+			pause();
 	}
 }
 
@@ -55,11 +55,14 @@ int main(int argc, char **argv)
         if (!ft_parser_pid(argv[1]))
             return(printf("error parserPID\n"), 1);
         pid = atoi(argv[1]);
-        if (pid < 0)
+        if (pid <= 0)
             return(0);
         signal(SIGUSR1, &sig_usr_handler);
   	    while (argv[2][i])
-		    ft_send_signal(argv[2][i++], pid);
+        {
+		    ft_send_signal(argv[2][i], pid);
+            i++;
+        }
     }
     return(0);
 }
