@@ -2,7 +2,17 @@
 #include <stdio.h>
 #include <signal.h>
 
-void	ft_print_char(int signal, siginfo_t *pid, void *opt)
+void	print_pid(int pid)
+{
+	char	chr;
+
+	if (pid > 9)
+		print_pid(pid / 10);
+	chr = pid % 10 + '0';
+	write(1, &chr, 1);
+}
+
+void	print_char(int signal, siginfo_t *pid, void *opt)
 {
 	static int ch;
 	static int i = 0;
@@ -25,8 +35,9 @@ int main()
     int pid;
 
     pid = getpid();
-    printf("server PID-->%d\n", pid);
-	sg.sa_sigaction = ft_print_char;
+	print_pid(pid);
+	write(1, "\n", 1);
+	sg.sa_sigaction = print_char;
 	sg.sa_flags = SA_SIGINFO;
 	sigaction(SIGUSR1, &sg, 0);
 	sigaction(SIGUSR2, &sg, 0);

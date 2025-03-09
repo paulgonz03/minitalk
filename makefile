@@ -13,8 +13,10 @@ $(CLIENT):
 	gcc $(CFLAGS) client.c $ -o $(CLIENT)
 
 clean:
-	rm -rf $(SERVER) $(CLIENT) $(SERVER_BONUS) $(CLIENT_BONUS)
+	rm -rf $(SERVER) $(CLIENT) 
 
 fclean: clean
 
-re: fclean all
+re: fclean all 
+
+.PHONY: all flean clean re
